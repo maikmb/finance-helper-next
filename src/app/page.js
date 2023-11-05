@@ -1,22 +1,32 @@
 'use client'
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
-  const [despesas, setDespesas] = useState([]);
+  const [despesas, setDespesas] = useState(
+    JSON.parse(localStorage.getItem('despesas')) || []
+  );
   const [descricao, setDescricao] = useState('');
   const [valor, setValor] = useState('');
-  const [saldo, setSaldo] = useState(0);
+  const [saldo, setSaldo] = useState(
+    parseFloat(localStorage.getItem('saldo')) || 0
+  );
+
+  useEffect(() => {
+    debugger
+    localStorage.setItem('despesas', JSON.stringify(despesas));
+    localStorage.setItem('saldo', saldo);
+  }, [despesas, saldo]);
 
   const adicionarDespesa = () => {
     if (descricao && valor) {
       const novaDespesa = {
         id: despesas.length + 1,
         descricao,
-        valor: parseFloat(valor)
+        valor: parseFloat(valor),
       };
       setDespesas([...despesas, novaDespesa]);
-      setSaldo(saldo - parseFloat(valor));
+      setSaldo(saldo + parseFloat(valor));
       setDescricao('');
       setValor('');
     }
@@ -44,7 +54,12 @@ export default function Home() {
       <ul className="lista-despesas">
         {despesas.map((despesa) => (
           <li key={despesa.id}>
-            {despesa.descricao}: R$ {despesa.valor.toFixed(2)}
+            <p>
+              {despesa.descricao}
+            </p>
+            <p>
+              R$ {despesa.valor.toFixed(2)}
+            </p>
           </li>
         ))}
       </ul>
