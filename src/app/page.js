@@ -35,6 +35,13 @@ export default function Home() {
       setValor('');
     }
   };
+  
+  const limparDespesas = () => {
+    setDespesas([]);
+    setSaldo(0);
+    localStorage.setItem('despesas', JSON.stringify([]));
+    localStorage.setItem('saldo', 0);
+  }
 
   return (
     <div className="App">
@@ -54,6 +61,7 @@ export default function Home() {
           onChange={(e) => setValor(e.target.value)}
         />
         <button onClick={adicionarDespesa}>Adicionar</button>
+        <button onClick={limparDespesas}>Limpar Despesas</button>
       </div>
       <ul className="lista-despesas">
         {despesas.map((despesa) => (
