@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Finance Helper by WithWorker
 
-## Getting Started
+Finance Helper é uma aplicação de lançamento de despesas financeiras desenvolvida pela WithWorker, projetada para ajudar você a gerenciar suas finanças de maneira simples e eficaz.
 
-First, run the development server:
+## Acesso à Aplicação
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Você pode acessar a aplicação Finance Helper em [https://finance-helper-next.vercel.app/](https://finance-helper-next.vercel.app/).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Funcionalidades
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- Adicione despesas com descrição e valor.
+- Visualize sua lista de despesas e saldo total.
+- Mantenha um controle claro e organizado de suas finanças.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Como Contribuir
 
-## Learn More
+Este projeto é open source e nós encorajamos a comunidade de desenvolvedores a contribuir para tornar o Finance Helper ainda melhor. Se você deseja contribuir, siga estas etapas:
 
-To learn more about Next.js, take a look at the following resources:
+1. Fork este repositório.
+2. Crie uma branch para a sua funcionalidade ou correção de bug: `git checkout -b sua-funcionalidade`.
+3. Faça suas alterações e faça commit das mudanças: `git commit -m "Adicione sua funcionalidade"`.
+4. Envie as alterações para o seu fork: `git push origin sua-funcionalidade`.
+5. Abra um pull request neste repositório.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Nós revisaremos suas contribuições com prazer e trabalharemos juntos para integrá-las ao Finance Helper.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Como Executar os Principais Scripts
 
-## Deploy on Vercel
+### `npm run dev`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Executa o aplicativo no modo de desenvolvimento. Abra [http://localhost:3000](http://localhost:3000) para visualizá-lo no seu navegador.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### `npm run build`
+
+Compila o aplicativo para produção na pasta `.next`.
+
+### `npm start`
+
+Inicia o servidor de produção com o aplicativo compilado.
+
+### `npm run lint`
+
+Executa a verificação de lint no código-fonte.
+
+### `npm run export`
+
+Exporta o aplicativo como arquivos estáticos para a pasta `build`.
+
+### `npm test`
+
+Executa os testes em modo de observação interativa.
+
+### `npm run test:ci`
+
+Executa os testes em um ambiente de integração contínua.
+
+## Licença
+
+Este projeto é licenciado sob a [Licença MIT](LICENSE), o que significa que você pode usá-lo livremente, modificar e distribuir conforme suas necessidades.
+
+Desenvolvido com ❤️ por WithWorker - [https://www.withworker.com](https://www.withworker.com)
