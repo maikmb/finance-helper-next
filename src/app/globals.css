@@ -28,34 +28,26 @@ body {
 
 
 body {
-  background-color: #f4f4f4;
-  font-family: Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+  background-color: #8a05be;
   margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Arial, sans-serif;
 }
 
-.App {
+.container {
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 4px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-  padding: 30px;
+  width: 300px;
   text-align: center;
-  max-width: 900px;
-  width: 100%;
-}
-
-h1 {
-  color: #8a05be;
-  font-size: 24px;
-  margin-bottom: 20px;
+  padding: 20px;
 }
 
 .saldo {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: bold;
   color: #8a05be;
   margin-bottom: 20px;
@@ -63,17 +55,16 @@ h1 {
 
 .formulario {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   margin-bottom: 20px;
 }
 
 .formulario input {
-  flex: 1;
-  margin-right: 10px;
+  margin: 10px 0;
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ccc;
+  width: calc(100% - 20px);
+  border: none;
   border-radius: 4px;
   box-sizing: border-box;
 }
@@ -88,6 +79,8 @@ h1 {
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
 }
 
 .formulario button svg {
@@ -105,6 +98,15 @@ h1 {
   padding: 10px;
   background-color: #eee;
   border-radius: 4px;
-  display: flex;
-  justify-content: space-between;
+}
+
+/* Estilos responsivos para dispositivos móveis */
+@media (max-width: 480px) {
+  .container {
+    width: 100%;
+  }
+
+  .formulario input {
+    width: 100%;
+  }
 }
