@@ -9,7 +9,8 @@ permissions:
   contents: write
 
 jobs:
-  deploy:
+  cd:
+    name: "Continuous delivery"
     runs-on: ubuntu-latest
 
     steps:
