@@ -3,20 +3,16 @@
 import { useEffect, useState } from 'react';
 
 export default function Home() {
-  const [despesas, setDespesas] = useState(
-    JSON.parse(localStorage.getItem('despesas')) || []
-  );
+  const [despesas, setDespesas] = useState([]);
+  const [saldo, setSaldo] = useState(0);
+
   const [descricao, setDescricao] = useState('');
   const [valor, setValor] = useState('');
-  const [saldo, setSaldo] = useState(
-    parseFloat(localStorage.getItem('saldo')) || 0
-  );
 
   useEffect(() => {
-    debugger
-    localStorage.setItem('despesas', JSON.stringify(despesas));
-    localStorage.setItem('saldo', saldo);
-  }, [despesas, saldo]);
+    setDespesas(JSON.parse(localStorage.getItem('despesas')) || [])
+    setSaldo(parseFloat(localStorage.getItem('saldo')) || 0)
+  }, [])
 
   const adicionarDespesa = () => {
     if (descricao && valor) {
@@ -25,8 +21,16 @@ export default function Home() {
         descricao,
         valor: parseFloat(valor),
       };
-      setDespesas([...despesas, novaDespesa]);
-      setSaldo(saldo + parseFloat(valor));
+
+      const saldoAtual = saldo + parseFloat(valor);
+      const despesasAtuais = [...despesas, novaDespesa]
+
+      setDespesas(despesasAtuais);
+      setSaldo(saldoAtual);
+
+      localStorage.setItem('despesas', JSON.stringify(despesasAtuais));
+      localStorage.setItem('saldo', saldoAtual);
+
       setDescricao('');
       setValor('');
     }
