@@ -17,8 +17,8 @@ export default function FormularioNovaDespesa({ adicionarDespesa, limparDespesas
                 placeholder="Valor"
                 value={valor}
                 onChange={(e) => setValor(e.target.value)} />
-            <button onClick={adicionarDespesa}>Adicionar</button>
-            <button onClick={limparDespesas}>Limpar Despesas</button>
+            <button onClick={() => adicionarDespesa({ descricao, valor })}>Adicionar</button>
+            <button onClick={() => limparDespesas()}>Limpar Despesas</button>
         </div>
     )
 }
