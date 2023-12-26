@@ -29,12 +29,9 @@ export default function Home() {
       setSaldo(saldoAtual);
 
       localStorage.setItem('despesas', JSON.stringify(despesasAtuais));
-      localStorage.setItem('saldo', saldoAtual);
-
-      setDescricao('');
-      setValor('');
+      localStorage.setItem('saldo', saldoAtual);    
     }
-  };
+  }
 
   const limparDespesas = () => {
     setDespesas([]);
@@ -43,11 +40,20 @@ export default function Home() {
     localStorage.setItem('saldo', 0);
   }
 
+  const limparUltimarDespesa = () => {
+    const saldoAtualizado = saldo - despesas[despesas.length - 1].valor
+    const despesasAtualizadas = despesas.slice(0, despesas.length - 1);
+    setDespesas(despesasAtualizadas);
+    setSaldo(saldoAtualizado);
+    localStorage.setItem('despesas', JSON.stringify(despesasAtualizadas));
+    localStorage.setItem('saldo', saldoAtualizado);
+  }
+
   return (
     <div className="w-full">
       <Saldo saldo={saldo} mesReferencia={'Dezembro'} />
       <Lancamentos despesas={despesas} />
-      <FormularioNovaDespesa limparDespesas={limparDespesas} adicionarDespesa={adicionarDespesa} />
+      <FormularioNovaDespesa limparDespesas={limparDespesas} adicionarDespesa={adicionarDespesa} limparUltimarDespesa={limparUltimarDespesa} />
     </div>
   );
 

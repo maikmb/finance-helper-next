@@ -1,9 +1,15 @@
 import React, { useState } from 'react'
 
-export default function FormularioNovaDespesa({ adicionarDespesa, limparDespesas }) {
+export default function FormularioNovaDespesa({ adicionarDespesa, limparDespesas, limparUltimarDespesa }) {
 
     const [descricao, setDescricao] = useState('');
     const [valor, setValor] = useState('');
+
+    const onAdicionarClick = () => {
+        adicionarDespesa({ descricao, valor })
+        setDescricao('')
+        setValor('')
+    }
 
     return (
         <div className='flex flex-col p-3'>
@@ -17,8 +23,9 @@ export default function FormularioNovaDespesa({ adicionarDespesa, limparDespesas
                 placeholder="Valor"
                 value={valor}
                 onChange={(e) => setValor(e.target.value)} />
-            <button onClick={() => adicionarDespesa({ descricao, valor })}>Adicionar</button>
-            <button onClick={() => limparDespesas()}>Limpar Despesas</button>
-        </div>
+            <button onClick={() => onAdicionarClick()}>Adicionar</button>
+            <button onClick={() => limparDespesas()}>Apagar todas as despesas</button>
+            <button onClick={() => limparUltimarDespesa()}>Apagar último lançamento</button>
+        </div >
     )
 }
