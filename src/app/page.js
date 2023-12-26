@@ -14,7 +14,7 @@ export default function Home() {
     setSaldo(parseFloat(localStorage.getItem('saldo')) || 0)
   }, [])
 
-  const adicionarDespesa = () => {
+  const adicionarDespesa = ({ descricao, valor }) => {
     if (descricao && valor) {
       const novaDespesa = {
         id: despesas.length + 1,
