@@ -6,16 +6,13 @@ import { CiShop } from "react-icons/ci";
 
 
 export default function ItemDespesa({ descricao, tipoLancamento, valor }) {
-    debugger
-    const itemDespesaClass = classNames('flex rounded-full w-7 h-7 justify-center items-center', {
-        'bg-red-400': tipoLancamento === TipoLancamento.Despesa,
-        'bg-green-700': tipoLancamento === TipoLancamento.Receita
-    });
-
     return (
         <div className='flex flex-row p-2'>
             <div className='w-10'>
-                <div className={itemDespesaClass}>
+                <div className={classNames('flex rounded-full w-7 h-7 justify-center items-center', {
+                    'bg-red-400': tipoLancamento === TipoLancamento.Despesa,
+                    'bg-green-700': tipoLancamento === TipoLancamento.Receita
+                })}>
                     <CiShop />
                 </div>
             </div>

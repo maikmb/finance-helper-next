@@ -15,7 +15,6 @@ import { TipoLancamento } from '@/domain/enums/tipoLancamento';
 import { sumBy } from 'lodash';
 import { obterNomeMesAtual } from '@/helper/obterMesAtual';
 
-
 export default function Home() {
   const [lancamentos, setLancamentos] = useState([]);
   const [saldo, setSaldo] = useState(0);
@@ -96,6 +95,8 @@ export default function Home() {
   }
 
   const OpcoesFloatButton = () => {
+    if (typeof window === "undefined")  return;
+
     return (
       <Fab
         icon={<IoAdd />}
