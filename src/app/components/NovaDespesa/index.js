@@ -1,6 +1,12 @@
+import classNames from 'classnames';
 import React, { useState } from 'react'
 
-export default function FormularioNovaDespesa({ adicionarDespesa, limparDespesas, limparUltimarDespesa }) {
+export default function FormularioNovaDespesa({
+    mostrar,
+    adicionarDespesa,
+    limparDespesas,
+    limparUltimarDespesa
+}) {
 
     const [descricao, setDescricao] = useState('');
     const [valor, setValor] = useState('');
@@ -12,7 +18,10 @@ export default function FormularioNovaDespesa({ adicionarDespesa, limparDespesas
     }
 
     return (
-        <div className='flex flex-col p-3'>
+        <div className={classNames({
+            'flex flex-col p-3': mostrar,
+            'hidden p-3': !mostrar
+        })}>
             <input
                 type="text"
                 placeholder="Descrição"
