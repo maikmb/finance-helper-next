@@ -3,7 +3,8 @@ import React, { useState } from 'react'
 
 export default function FormularioNovaDespesa({
     mostrar,
-    onAdicionarDespesaClick,
+    tipoLancamento,
+    onAdicionarLancamentoClick,
     onCancelarClick
 }) {
 
@@ -11,7 +12,7 @@ export default function FormularioNovaDespesa({
     const [valor, setValor] = useState('');
 
     const onAdicionarClick = () => {
-        onAdicionarDespesaClick({ descricao, valor })
+        onAdicionarLancamentoClick({ descricao, valor, tipoLancamento })
         setDescricao('')
         setValor('')
     }
