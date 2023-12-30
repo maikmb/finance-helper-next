@@ -1,18 +1,26 @@
+import classNames from 'classnames';
 import React, { useState } from 'react'
 
-export default function FormularioNovaDespesa({ adicionarDespesa, limparDespesas, limparUltimarDespesa }) {
+export default function FormularioNovaDespesa({
+    mostrar,
+    onAdicionarDespesaClick,
+    onCancelarClick
+}) {
 
     const [descricao, setDescricao] = useState('');
     const [valor, setValor] = useState('');
 
     const onAdicionarClick = () => {
-        adicionarDespesa({ descricao, valor })
+        onAdicionarDespesaClick({ descricao, valor })
         setDescricao('')
         setValor('')
     }
 
     return (
-        <div className='flex flex-col p-3'>
+        <div className={classNames({
+            'flex flex-col p-3': mostrar,
+            'hidden p-3': !mostrar
+        })}>
             <input
                 type="text"
                 placeholder="Descrição"
@@ -23,9 +31,8 @@ export default function FormularioNovaDespesa({ adicionarDespesa, limparDespesas
                 placeholder="Valor"
                 value={valor}
                 onChange={(e) => setValor(e.target.value)} />
-            <button onClick={() => onAdicionarClick()}>Adicionar</button>
-            <button onClick={() => limparDespesas()}>Apagar todas as despesas</button>
-            <button onClick={() => limparUltimarDespesa()}>Apagar último lançamento</button>
+            <button onClick={() => onAdicionarClick()}>Adicionar</button>            
+            <button onClick={() => onCancelarClick()}>Cancelar</button>            
         </div >
     )
 }
