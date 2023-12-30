@@ -7,3 +7,7 @@ export const obterLancamentos = () => {
 export const salvarLancamentos = (lancamentos) => {
     localStorage.setItem(lancamentosCacheKey, JSON.stringify(lancamentos));
 }
+
+export const salvarSaldo = (saldo) => {
+    localStorage.setItem('saldo', saldo);
+}

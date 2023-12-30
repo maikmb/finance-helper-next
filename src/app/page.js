@@ -10,75 +10,93 @@ import 'react-tiny-fab/dist/styles.css';
 import { FaLongArrowAltDown, FaLongArrowAltUp } from "react-icons/fa";
 import { MdOutlineDeleteSweep } from "react-icons/md";
 import { TiDocumentDelete } from "react-icons/ti";
-import { obterLancamentos, salvarLancamentos } from '@/repositories/lancamentosRepository';
+import { obterLancamentos, salvarLancamentos, salvarSaldo } from '@/repositories/lancamentosRepository';
 import { TipoLancamento } from '@/domain/enums/tipoLancamento';
-
+import { sumBy } from 'lodash';
+import { obterNomeMesAtual } from '@/helper/obterMesAtual';
 
 export default function Home() {
   const [lancamentos, setLancamentos] = useState([]);
   const [saldo, setSaldo] = useState(0);
-  const [tipoLancamento, setTipoLancamento] = useState();
+  const [totalDespesas, setTotalDespesas] = useState(0);
+  const [totalReceitas, setTotalReceitas] = useState(0);
+  const [tipoNovoLancamento, setTipoNovoLancamento] = useState();
   const [mostraFormularioNovoLancamento, setMostraFormularioNovoLancamento] = useState(0);
 
+  const mesReferencia = obterNomeMesAtual();
+
   useEffect(() => {
-    setLancamentos(obterLancamentos())
-    setSaldo(parseFloat(localStorage.getItem('saldo')) || 0)
+    const lancamentosAtuais = obterLancamentos();
+    setLancamentos(lancamentosAtuais);
+    calcularSaldo(lancamentosAtuais);
   }, [])
 
-  const onAdicionarDespesaClick = ({ descricao, valor }) => {
+  const onAdicionarLancamentoClick = ({ descricao, tipoLancamento, valor }) => {
     if (descricao && valor) {
       const novaDespesa = {
         id: lancamentos.length + 1,
         descricao,
+        tipoLancamento,
         valor: parseFloat(valor),
       };
 
-      const saldoAtual = saldo + parseFloat(valor);
-      const despesasAtuais = [...lancamentos, novaDespesa]
-
+      const despesasAtuais = [...lancamentos, novaDespesa];
       setLancamentos(despesasAtuais);
-      setSaldo(saldoAtual);
-
+      calcularSaldo(despesasAtuais);
       salvarLancamentos(despesasAtuais);
-      localStorage.setItem('saldo', saldoAtual);
       setMostraFormularioNovoLancamento(false);
     }
   }
 
+  const calcularSaldo = (lancamentos) => {
+    const totalReceitas = sumBy(lancamentos.filter(args => args.tipoLancamento === TipoLancamento.Receita), 'valor');
+    const totalDespesas = sumBy(lancamentos.filter(args => args.tipoLancamento === TipoLancamento.Despesa), 'valor');
+    const saldoAtual = totalReceitas - totalDespesas;
+    setSaldo(saldoAtual);
+    setTotalDespesas(totalDespesas);
+    setTotalReceitas(totalReceitas);
+    salvarSaldo(saldoAtual);
+  }
+
   const onLimparDespesasClick = () => {
-    setLancamentos([]);
-    setSaldo(0);
-    salvarLancamentos([]);
-    localStorage.setItem('saldo', 0);
-    setMostraFormularioNovoLancamento(false);
+    if (confirm('Deseja realmente apagar todos os seus lançamentos?')) {
+      setLancamentos([]);
+      setSaldo(0);
+      salvarLancamentos([]);
+      salvarSaldo(0);
+      setMostraFormularioNovoLancamento(false);
+    }
   }
 
   const onLimparUltimarDespesaClick = () => {
-    const saldoAtualizado = saldo - lancamentos[lancamentos.length - 1].valor
-    const despesasAtualizadas = lancamentos.slice(0, lancamentos.length - 1);
-    setLancamentos(despesasAtualizadas);
-    setSaldo(saldoAtualizado);
-    salvarLancamentos(despesasAtualizadas);
-    localStorage.setItem('saldo', saldoAtualizado);
-    setMostraFormularioNovoLancamento(false);
+    if (confirm('Deseja apagar o último lançamento?')) {
+      const saldoAtualizado = saldo - lancamentos[lancamentos.length - 1].valor
+      const despesasAtualizadas = lancamentos.slice(0, lancamentos.length - 1);
+      setLancamentos(despesasAtualizadas);
+      setSaldo(saldoAtualizado);
+      salvarLancamentos(despesasAtualizadas);
+      salvarSaldo(saldoAtualizado);
+      setMostraFormularioNovoLancamento(false);
+    }
   }
 
   const onDespesaClick = () => {
-    debugger
     setMostraFormularioNovoLancamento(true);
-    setTipoLancamento(TipoLancamento.Despesa);
+    setTipoNovoLancamento(TipoLancamento.Despesa);
   }
 
   const onReceitaClickClick = () => {
     setMostraFormularioNovoLancamento(true);
-    setTipoLancamento(TipoLancamento.Receita);
+    setTipoNovoLancamento(TipoLancamento.Receita);
   }
-  
+
   const onCancelarClick = () => {
     setMostraFormularioNovoLancamento(false);
   }
 
   const OpcoesFloatButton = () => {
+    if (typeof window === "undefined")  return;
+
     return (
       <Fab
         icon={<IoAdd />}
@@ -118,11 +136,12 @@ export default function Home() {
   return (
     <>
       <div className="w-full">
-        <Saldo saldo={saldo} mesReferencia={'Dezembro'} />
+        <Saldo saldo={saldo} totalDespesas={totalDespesas} mesReferencia={mesReferencia} />
         <Lancamentos despesas={lancamentos} />
         <FormularioNovaDespesa
           mostrar={mostraFormularioNovoLancamento}
-          onAdicionarDespesaClick={onAdicionarDespesaClick}
+          tipoLancamento={tipoNovoLancamento}
+          onAdicionarLancamentoClick={onAdicionarLancamentoClick}
           onCancelarClick={onCancelarClick}
         />
       </div>
