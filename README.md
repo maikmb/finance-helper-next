@@ -2,6 +2,9 @@
 
 Finance Helper é uma aplicação de lançamento de despesas financeiras desenvolvida pela WithWorker, projetada para ajudar você a gerenciar suas finanças de maneira simples e eficaz.
 
+![image](https://github.com/maikmb/finance-helper-next/assets/4916896/3a7109de-f600-4a2a-aac0-4e161dc86ca4)
+
+
 ## Acesso à Aplicação
 
 Você pode acessar a aplicação Finance Helper em [https://finance-helper-next.vercel.app/](https://finance-helper-next.vercel.app/).
